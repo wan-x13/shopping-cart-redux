@@ -1,6 +1,12 @@
+import { useDispatch } from 'react-redux'
 import './cartItem.css'
+import { incrementQuantity, decrementQuantity, removeItem } from '../redux/cartSlice'
+
+
 
 function CartItem({id, image, title, price, quantity=0}) {
+
+  const dispatch = useDispatch()
 
   return (
     <div className="cartItem">
@@ -13,11 +19,18 @@ function CartItem({id, image, title, price, quantity=0}) {
           <strong>{price}</strong>
         </p>
         <div className='cartItem__incrDec'>
-          <button>-</button>
+          <button
+           onClick={()=> dispatch(decrementQuantity(id))}
+          >-</button>
           <p>{quantity}</p>
-          <button>+</button>
+          <button
+           onClick={()=> dispatch(incrementQuantity(id))}
+          >+</button>
         </div>
-        <button className='cartItem__removeButton'>Remove</button> 
+        <button 
+        className='cartItem__removeButton'
+        onClick={()=> dispatch(removeItem(id))}
+        >Remove</button> 
       </div>
     </div>
   )
